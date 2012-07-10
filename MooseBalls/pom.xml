@@ -4,7 +4,8 @@
 
   <groupId>MooseBalls</groupId>
   <artifactId>MooseBalls</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>auto</version> 
+
   <packaging>jar</packaging>
 
   <name>MooseBalls</name>
