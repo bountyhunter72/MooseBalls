@@ -48,9 +48,10 @@
 <dependency>
  <groupId>org.bukkit</groupId>
  <artifactId>craftbukkit</artifactId>
- <version>1.2.5-R4.1</version> 
+ <version>1.2.5-R4.1-20120610.014300-1</version> 
 <scope>provided</scope>
  </dependency>
+
  
   </dependencies>
 </project>
