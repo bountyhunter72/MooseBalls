@@ -1,0 +1,7 @@
+name: MooseBall
+main: net.charter.jpatterson72.MooseBall.MooseBall
+version: 1.00.00
+commands:
+   team:
+      description: Mooseball Plugin
+      usage: /team
