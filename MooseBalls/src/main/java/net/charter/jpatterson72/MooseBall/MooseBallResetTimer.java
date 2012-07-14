@@ -14,6 +14,7 @@ public class MooseBallResetTimer {
 						MooseBallHandler.blueTeamMatch.clear();
 						MooseBallHandler.blueTeamEleminated.clear();
 						MooseBallHandler.redTeamEleminated.clear();	
+						MooseBallHandler.checkTeams();
 						
 					}
 				}, 60);

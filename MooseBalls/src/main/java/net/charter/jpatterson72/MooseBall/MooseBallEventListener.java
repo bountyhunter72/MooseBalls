@@ -21,8 +21,6 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
-
-
 public class MooseBallEventListener implements Listener {
 	public static MooseBall plugin;
 
@@ -32,29 +30,27 @@ public class MooseBallEventListener implements Listener {
 	}
 
 	Logger log;
-	
+
 	@EventHandler(priority = EventPriority.LOW)
-	public void onEntityDamage(EntityDamageEvent event)
-	{
+	public void onEntityDamage(EntityDamageEvent event) {
 		if ((event.getEntity() instanceof Player)) {
 
 			Player victim = (Player) event.getEntity();
 			if (victim.hasMetadata("MooseBall")) {
-			
-			if (event.getDamage() >= victim.getHealth())
-			{
-				victim.setMetadata("Eleminated", new FixedMetadataValue(plugin, "true"));
-				MooseBallHandler.clearMooseBall(victim);
-				MooseBallHandler.lobbySpawn(victim);
-				MooseBallHandler.deColorize(victim);
-				MooseBallHandler.eleminatePlayer(victim);
-				MooseBallHandler.checkWin();
-				event.setCancelled(true);
-			}
+
+				if (event.getDamage() >= victim.getHealth()) {
+					victim.setMetadata("Eleminated", new FixedMetadataValue(
+							plugin, "true"));
+					MooseBallHandler.clearMooseBall(victim);
+					MooseBallHandler.lobbySpawn(victim);
+					MooseBallHandler.deColorize(victim);
+					MooseBallHandler.eleminatePlayer(victim);
+					MooseBallHandler.checkWin();
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
-	
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -83,24 +79,25 @@ public class MooseBallEventListener implements Listener {
 
 							{
 
-							
-								
-								int MooseBalls = attacker.getMetadata("MooseBalls").get(0).asInt();
-								MooseBalls ++;
-								attacker.setMetadata("MooseBalls", new FixedMetadataValue(plugin, MooseBalls));
-								
-								
-								
-								victim.setMetadata("Eleminated", new FixedMetadataValue(plugin, "true"));
+								int MooseBalls = attacker
+										.getMetadata("MooseBalls").get(0)
+										.asInt();
+								MooseBalls++;
+								attacker.setMetadata("MooseBalls",
+										new FixedMetadataValue(plugin,
+												MooseBalls));
+
+								victim.setMetadata("Eleminated",
+										new FixedMetadataValue(plugin, "true"));
 								MooseBallHandler.clearMooseBall(victim);
 								MooseBallHandler.lobbySpawn(victim);
 								MooseBallHandler.deColorize(victim);
 								MooseBallHandler.eleminatePlayer(victim);
-								
-								MooseBallBroadCast.MooseBallBraodCast(victim.getName(), attackername);
+
+								MooseBallBroadCast.MooseBallBraodCast(
+										victim.getName(), attackername);
 								MooseBallHandler.checkWin();
-								
-								
+
 								event.setCancelled(true);
 							} else {
 								event.setCancelled(true);
@@ -117,107 +114,119 @@ public class MooseBallEventListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onToggleSneakEvent(PlayerToggleSneakEvent event) {
 		Player player = event.getPlayer();
+		if (!(player.isSneaking()))
+			;
 		if (player.hasMetadata("MooseBall")) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		String playerName = player.getName();
+		
 		if (player.hasMetadata("MooseBallAFK")) {
-			
+
 			player.removeMetadata("MooseBallAFK", plugin);
 		}
 	}
-	
-	
+
 	@EventHandler
 	public void clickEvent(InventoryClickEvent event) {
 		Entity e = event.getWhoClicked();
-		
-		if(e instanceof Player)
-		{
-			Player player = (Player)e;
-		if (player.hasMetadata("MooseBall")) {
-			
-			event.setCancelled(true);
-		}
+
+		if (e instanceof Player) {
+			Player player = (Player) e;
+			if (player.hasMetadata("MooseBall")) {
+
+				event.setCancelled(true);
+			}
 		}
 	}
-		@EventHandler(priority = EventPriority.LOWEST)
-		public void onPlayerQuit(PlayerQuitEvent event) {
-			Player player = event.getPlayer();
-			String playerName = player.getName();
-			MooseBallSQL.SavePlayer(player);
-			if (MooseBallHandler.redTeamcue.contains(playerName))
-			{
-				MooseBallHandler.redTeamcue.remove(playerName);
-				
-			}
-			
-			if (MooseBallHandler.blueTeamcue.contains(playerName))
-			{
-				MooseBallHandler.blueTeamcue.remove(playerName);
-				
-			}
-			
-			if (MooseBallHandler.blueTeamMatch.contains(playerName))
-			{	
-				if(player.hasMetadata("Eleminated"))
-				{
-					MooseBallHandler.blueTeamMatch.remove(playerName);	
-				}
-				else
-				{
-					MooseBallHandler.blueTeamMatch.remove(playerName);
+
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		String playerName = player.getName();
+		MooseBallSQL.SavePlayer(player);
+		if (MooseBallHandler.redTeamcue.contains(playerName)) {
+			MooseBallHandler.redTeamcue.remove(playerName);
+
+		}
+
+		if (MooseBallHandler.blueTeamcue.contains(playerName)) {
+			MooseBallHandler.blueTeamcue.remove(playerName);
+
+		}
+
+		if (MooseBallHandler.blueTeamMatch.contains(playerName)) {
+			if (player.hasMetadata("Eleminated")) {
+				MooseBallHandler.blueTeamMatch.remove(playerName);
+			} else {
+				MooseBallHandler.blueTeamMatch.remove(playerName);
 				MooseBallHandler.clearMooseBall(player);
 				MooseBallHandler.lobbySpawn(player);
 				MooseBallHandler.deColorize(player);
 				MooseBallHandler.checkWin();
-				}
 			}
-			if (MooseBallHandler.redTeamMatch.contains(playerName))
-			{
-				if(player.hasMetadata("Eleminated"))
-				{
-					MooseBallHandler.redTeamMatch.remove(playerName);	
-				}
-				else
-				{
-					MooseBallHandler.redTeamMatch.remove(playerName);
+		}
+		if (MooseBallHandler.redTeamMatch.contains(playerName)) {
+			if (player.hasMetadata("Eleminated")) {
+				MooseBallHandler.redTeamMatch.remove(playerName);
+			} else {
+				MooseBallHandler.redTeamMatch.remove(playerName);
 				MooseBallHandler.clearMooseBall(player);
 				MooseBallHandler.lobbySpawn(player);
 				MooseBallHandler.deColorize(player);
 				MooseBallHandler.checkWin();
-				}
+			}
 		}
 	}
-		@EventHandler
-		public void onPlayerJoin(PlayerJoinEvent event) {
-			Player player = event.getPlayer();
-			player.setMetadata("MooseBalls", new FixedMetadataValue(plugin, 0));
-			player.setMetadata("MooseBallArmor", new FixedMetadataValue(plugin, "leather"));
-			
-			int rowcount = MooseBallSQL.playerInSQL(player);
 
-			if (rowcount > 0) {
-				MooseBallSQL.LoadPlayer(player, plugin);
-			}
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		player.setMetadata("MooseBalls", new FixedMetadataValue(plugin, 0));
+		player.setMetadata("MooseBallArmor", new FixedMetadataValue(plugin,
+				"leather"));
 
-			if (rowcount < 1)
+		int rowcount = MooseBallSQL.playerInSQL(player);
 
-			{
+		if (rowcount > 0) {
+			MooseBallSQL.LoadPlayer(player, plugin);
 		}
-}
-		@EventHandler(priority = EventPriority.HIGHEST)
-		public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent evt)
+
+		if (rowcount < 1)
 
 		{
-			Player player = evt.getPlayer();
+		}
+	}
 
-			String eventString = evt.getMessage().toString();
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent evt)
 
+	{		Player player = evt.getPlayer();
+
+	String eventString = evt.getMessage().toString();
+		if (player.hasPermission("figadmin.ban")) 
+		{
+			boolean valid = eventString.contains("/tp") || eventString.contains("/spawn");
+
+			if (valid == true) {
+				if (player.hasMetadata("MooseBall"))
+
+				{
+
+					player.sendMessage(ChatColor.DARK_RED
+							+ "Please use /team leave to exit match before using that command!!");
+
+					evt.setCancelled(true);
+
+				}
+			}
+		}	
+
+		if (!(player.hasPermission("figadmin.ban"))) {
 			boolean valid = eventString.contains("/team")
 					|| eventString.contains("/msg");
 
@@ -226,15 +235,17 @@ public class MooseBallEventListener implements Listener {
 
 				{
 
+					player.sendMessage(ChatColor.DARK_RED
+							+ "Please use /team leave to exit match before using that command!!");
 
-					
-						player.sendMessage(ChatColor.DARK_RED
-								+ "Please use /team leave to exit match before using that command!!");
+					evt.setCancelled(true);
 
-						evt.setCancelled(true);
-					
 				}
 			}
-
 		}
+		
+
+		
+
+	}
 }
