@@ -766,6 +766,14 @@ public class MooseBallHandler {
 				MooseBallHandler.checkWin();
 			}
 		}
+		if(blueTeamEleminated.contains(playerName))
+				{
+			blueTeamEleminated.remove(playerName);
+				}
+		if(redTeamEleminated.contains(playerName))
+		{
+	redTeamEleminated.remove(playerName);
+		}
 		player.removeMetadata("MooseBall", plugin);
 	}
 
