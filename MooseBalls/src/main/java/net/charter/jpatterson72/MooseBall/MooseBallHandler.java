@@ -24,12 +24,20 @@ public class MooseBallHandler {
 	public static ArrayList<String> blueTeamMatch = new ArrayList<String>();
 	public static ArrayList<String> redTeamEleminated = new ArrayList<String>();
 	public static ArrayList<String> blueTeamEleminated = new ArrayList<String>();
-	public static ArrayList<String> blueCueClear = new ArrayList<String>();
-	public static ArrayList<String> redCueClear = new ArrayList<String>();
+
 	public static int matchStartTimerID;
 	public static int MooseBall15SecondTimerID;
 	public static int MooseBall5SecondTimerID;
 	public static int MooseBall1SecondTimerID;
+	public static double redX;
+	public static double redY;
+	public static double redZ;
+	public static double blueX;
+	public static double blueY;
+	public static double blueZ;
+	public static float redYaw;
+	public static float blueYaw;
+	
 
 	public static boolean matchInit = false;
 	public static MooseBall plugin;
@@ -42,79 +50,80 @@ public class MooseBallHandler {
 	Logger log;
 
 	public static boolean applyTeamRed(Player p) {
-
+		
+		
 		clearMooseBall(p);
 
 		p.setMetadata("MooseBall", new FixedMetadataValue(plugin, "red"));
-
-		if (p.hasMetadata("MooseBallArmor")) {
+		
+		
+		if (p.hasMetadata("MooseBallArmor"))
+		{
 			String armor = p.getMetadata("MooseBallArmor").get(0).asString();
-
-			if (armor.equalsIgnoreCase("leather")) {
-
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 14));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.LEATHER_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.LEATHER_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.LEATHER_BOOTS, 1));
+			
+			if (armor.equalsIgnoreCase("leather"))
+			{
+		
+		p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 14));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.LEATHER_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS, 1));
 			}
-
-			else if (armor.equalsIgnoreCase("gold")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 14));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.GOLD_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.GOLD_LEGGINGS, 1));
-				p.getInventory()
-						.setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
+			
+			else if (armor.equalsIgnoreCase("gold"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 14));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.GOLD_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.GOLD_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
 			}
-
-			else if (armor.equalsIgnoreCase("iron")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 14));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.IRON_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.IRON_LEGGINGS, 1));
-				p.getInventory()
-						.setBoots(new ItemStack(Material.IRON_BOOTS, 1));
-			} else if (armor.equalsIgnoreCase("chain")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 14));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			
+			else if (armor.equalsIgnoreCase("iron"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 14));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.IRON_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.IRON_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
 			}
-
-			else if (armor.equalsIgnoreCase("diamond")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 14));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.DIAMOND_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.DIAMOND_BOOTS, 1));
+			else if (armor.equalsIgnoreCase("chain"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 14));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			}
+			
+			else if (armor.equalsIgnoreCase("diamond"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 14));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.DIAMOND_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1));
 			}
 		}
-
+		
+		
+		
 		p.getPlayer().getInventory()
 				.addItem(new ItemStack(Material.SNOW_BALL, 64));
 		p.getPlayer().getInventory()
-				.addItem(new ItemStack(Material.SNOW_BALL, 64));
+		.addItem(new ItemStack(Material.SNOW_BALL, 64));	
 		p.getPlayer().getInventory()
-				.addItem(new ItemStack(Material.SNOW_BALL, 64));
+		.addItem(new ItemStack(Material.SNOW_BALL, 64));	
 		String oldName = p.getName();
 		EntityPlayer changingName = ((CraftPlayer) p).getHandle();
 
-		changingName.name = "ยงc" + p.getName();
+		changingName.name = "งc" + p.getName();
 
 		for (Player pInWorld : Bukkit.getServer().getOnlinePlayers()) {
 			if (pInWorld != p) {
@@ -122,76 +131,74 @@ public class MooseBallHandler {
 						.sendPacket(new Packet20NamedEntitySpawn(changingName));
 			}
 		}
-
+		
 		String colorName = changingName.name;
-		if (colorName.length() > 16) {
+		if (colorName.length() > 16)
+		{
 			colorName = colorName.substring(0, 16);
-
+			
 		}
-
+		
 		p.setPlayerListName(colorName);
 		changingName.name = oldName;
 		if (p.hasMetadata("Eleminated")) {
 			p.removeMetadata("Eleminated", plugin);
 		}
-
+		
 		return true;
 	}
 
 	public static boolean applyTeamBlue(Player p) {
 		clearMooseBall(p);
 		p.setMetadata("MooseBall", new FixedMetadataValue(plugin, "blue"));
-		if (p.hasMetadata("MooseBallArmor")) {
+		if (p.hasMetadata("MooseBallArmor"))
+		{
 			String armor = p.getMetadata("MooseBallArmor").get(0).asString();
-
-			if (armor.equalsIgnoreCase("leather")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 11));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.LEATHER_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.LEATHER_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.LEATHER_BOOTS, 1));
+			
+			if (armor.equalsIgnoreCase("leather"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 11));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.LEATHER_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS, 1));
 			}
-			if (armor.equalsIgnoreCase("gold")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 11));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.GOLD_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.GOLD_LEGGINGS, 1));
-				p.getInventory()
-						.setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
+			if (armor.equalsIgnoreCase("gold"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 11));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.GOLD_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.GOLD_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
 			}
-			if (armor.equalsIgnoreCase("iron")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 11));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.IRON_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.IRON_LEGGINGS, 1));
-				p.getInventory()
-						.setBoots(new ItemStack(Material.IRON_BOOTS, 1));
-			} else if (armor.equalsIgnoreCase("chain")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 11));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			if (armor.equalsIgnoreCase("iron"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 11));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.IRON_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.IRON_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
 			}
-			if (armor.equalsIgnoreCase("diamond")) {
-				p.getInventory().setHelmet(
-						new ItemStack(Material.WOOL, 1, (short) 11));
-				p.getInventory().setChestplate(
-						new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
-				p.getInventory().setLeggings(
-						new ItemStack(Material.DIAMOND_LEGGINGS, 1));
-				p.getInventory().setBoots(
-						new ItemStack(Material.DIAMOND_BOOTS, 1));
+			else if (armor.equalsIgnoreCase("chain"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 11));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			}
+			if (armor.equalsIgnoreCase("diamond"))
+			{
+				p.getInventory().setHelmet(new ItemStack(Material.WOOL, 1, (short) 11));
+		p.getInventory().setChestplate(
+				new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
+		p.getInventory().setLeggings(
+				new ItemStack(Material.DIAMOND_LEGGINGS, 1));
+		p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1));
 			}
 		}
 		p.getPlayer().getInventory()
@@ -199,12 +206,12 @@ public class MooseBallHandler {
 		p.getPlayer().getInventory()
 				.addItem(new ItemStack(Material.SNOW_BALL, 64));
 		p.getPlayer().getInventory()
-				.addItem(new ItemStack(Material.SNOW_BALL, 64));
+		.addItem(new ItemStack(Material.SNOW_BALL, 64));	
 
 		String oldName = p.getName();
 		EntityPlayer changingName = ((CraftPlayer) p).getHandle();
 
-		changingName.name = "ยง1" + p.getName();
+		changingName.name = "ง1" + p.getName();
 
 		for (Player pInWorld : Bukkit.getServer().getOnlinePlayers()) {
 			if (pInWorld != p) {
@@ -213,11 +220,12 @@ public class MooseBallHandler {
 			}
 		}
 		String colorName = changingName.name;
-		if (colorName.length() > 16) {
+		if (colorName.length() > 16)
+		{
 			colorName = colorName.substring(0, 16);
-
+			
 		}
-
+		
 		p.setPlayerListName(colorName);
 		changingName.name = oldName;
 		if (p.hasMetadata("Eleminated")) {
@@ -243,24 +251,23 @@ public class MooseBallHandler {
 		yourlocation.setYaw(MooseBallConfig.spawnYaw);
 		player.teleport(yourlocation);
 		player.setFoodLevel(20);
-
+		
 	}
 
 	public static void redSpawn(Player player) {
 		Random randx = new Random();
 		Random randz = new Random();
 		org.bukkit.World myworld = player.getWorld();
-		double randX = (MooseBallConfig.redX - 2) + (randx.nextInt(4));
-		double randZ = (MooseBallConfig.redZ - 2) + (randz.nextInt(4));
-		Location yourlocation = new Location(myworld, randX,
-				MooseBallConfig.redY + 1, randZ);
-		yourlocation.setYaw(MooseBallConfig.redYaw);
+		double randX = (redX - 2) + (randx.nextInt(5));
+		double randZ = (redZ - 2) + (randz.nextInt(5));
+		Location yourlocation = new Location(myworld, randX, redY, randZ);
+		yourlocation.setYaw(redYaw);
 		player.teleport(yourlocation);
-
+		
 		String oldName = player.getName();
 		EntityPlayer changingName = ((CraftPlayer) player).getHandle();
 
-		changingName.name = "ยงc" + player.getName();
+		changingName.name = "งc" + player.getName();
 
 		for (Player pInWorld : Bukkit.getServer().getOnlinePlayers()) {
 			if (pInWorld != player) {
@@ -268,36 +275,36 @@ public class MooseBallHandler {
 						.sendPacket(new Packet20NamedEntitySpawn(changingName));
 			}
 		}
-
+		
+		
 		String colorName = changingName.name;
-		if (colorName.length() > 16) {
+		if (colorName.length() > 16)
+		{
 			colorName = colorName.substring(0, 16);
-
+			
 		}
-
+		
 		player.setPlayerListName(colorName);
 		changingName.name = oldName;
-
-		player.setMetadata("MooseBallAFK", new FixedMetadataValue(plugin,
-				"true"));
+		
+		
 	}
 
 	public static void blueSpawn(Player player) {
 		Random randx = new Random();
 		Random randz = new Random();
-		double randX = (MooseBallConfig.blueX - 2) + (randx.nextInt(4));
-		double randZ = (MooseBallConfig.blueZ - 2) + (randz.nextInt(4));
+		double randX = (blueX - 2) + (randx.nextInt(5));
+		double randZ = (blueZ - 2) + (randz.nextInt(5));
 
 		org.bukkit.World myworld = player.getWorld();
-		Location yourlocation = new Location(myworld, randX,
-				MooseBallConfig.blueY + 1, randZ);
-		yourlocation.setYaw(MooseBallConfig.blueYaw);
+		Location yourlocation = new Location(myworld, randX,blueY, randZ);
+		yourlocation.setYaw(blueYaw);
 		player.teleport(yourlocation);
-
+		
 		String oldName = player.getName();
 		EntityPlayer changingName = ((CraftPlayer) player).getHandle();
 
-		changingName.name = "ยง1" + player.getName();
+		changingName.name = "ง1" + player.getName();
 
 		for (Player pInWorld : Bukkit.getServer().getOnlinePlayers()) {
 			if (pInWorld != player) {
@@ -306,17 +313,19 @@ public class MooseBallHandler {
 			}
 		}
 		String colorName = changingName.name;
-		if (colorName.length() > 16) {
+		if (colorName.length() > 16)
+		{
 			colorName = colorName.substring(0, 16);
-
+			
 		}
-
+		
 		player.setPlayerListName(colorName);
 		changingName.name = oldName;
-
-		player.setMetadata("MooseBallAFK", new FixedMetadataValue(plugin,
-				"true"));
+		
+		
 	}
+
+	
 
 	public static void checkTeams() {
 		int redTeam = redTeamcue.size();
@@ -325,15 +334,15 @@ public class MooseBallHandler {
 		if (plyrSize >= (MooseBallConfig.minimumPlayers))
 
 		{
-
+			
 			if (matchInit == false) {
 				plugin.getServer().broadcastMessage(
 						ChatColor.RED + "MooseBall: " + ChatColor.AQUA
 								+ "Next Match Begins In 30 Seconds!");
 				matchInit = true;
 
-				MooseBallStartTimer.matchStartTimer(plugin);
-				MooseBall15SecondTimer.MooseBall15SecondTimer(plugin);
+				matchStartTimerID = MooseBallStartTimer.matchStartTimer(plugin);
+				MooseBall15SecondTimerID = MooseBall15SecondTimer.MooseBall15SecondTimer(plugin);
 				MooseBall1SecondTimer.MooseBall1SecondTimer(plugin);
 				MooseBall5SecondTimer.MooseBall5SecondTimer(plugin);
 
@@ -351,25 +360,24 @@ public class MooseBallHandler {
 			player.sendMessage(ChatColor.RED + "Already Joined Blue Team");
 			return;
 		} else if (redTeamcue.size() >= MooseBallConfig.maxPlayers) {
-			player.sendMessage(ChatColor.RED + "Red Team Full!");
+			player.sendMessage(ChatColor.RED
+					+ "Red Team Full!");
 			return;
-		} else if (blueTeamMatch.contains(playerName)) {
+		} 
+		else if (blueTeamMatch.contains(playerName)) {
 			player.sendMessage(ChatColor.RED + "Already Joined Blue Team");
 			return;
-		} else if (redTeamMatch.contains(playerName)) {
+		}
+		else if (redTeamMatch.contains(playerName)) {
 			player.sendMessage(ChatColor.RED + "Already Joined Red Team");
 			return;
-		} else {
+		}
+		else {
 			redTeamcue.add(playerName);
 			player.sendMessage(ChatColor.RED + "You Have Joined The Red Team");
 			checkTeams();
-			plugin.getServer().broadcastMessage(
-					ChatColor.AQUA + "[MooseBall] " + ChatColor.RED
-							+ "Red Team " + redTeamcue.size() + " Players  "
-							+ ChatColor.BLUE + "Blue Team "
-							+ blueTeamcue.size() + " Players " + ChatColor.AQUA
-							+ "Have Joined!");
-
+			plugin.getServer().broadcastMessage(ChatColor.AQUA + "[MooseBall] " + ChatColor.RED + "Red Team " + redTeamcue.size() + " Players  " + ChatColor.BLUE + "Blue Team " + blueTeamcue.size() + " Players " + ChatColor.AQUA + "Have Joined!");
+			
 		}
 	}
 
@@ -382,24 +390,23 @@ public class MooseBallHandler {
 			player.sendMessage(ChatColor.RED + "Already Joined Blue Team");
 			return;
 		} else if (blueTeamcue.size() >= MooseBallConfig.maxPlayers) {
-			player.sendMessage(ChatColor.RED + "Blue Team Full!");
+			player.sendMessage(ChatColor.RED
+					+ "Blue Team Full!");
 			return;
-		} else if (blueTeamMatch.contains(playerName)) {
+		} 
+		else if (blueTeamMatch.contains(playerName)) {
 			player.sendMessage(ChatColor.RED + "Already Joined Blue Team");
 			return;
-		} else if (redTeamMatch.contains(playerName)) {
+		}
+		else if (redTeamMatch.contains(playerName)) {
 			player.sendMessage(ChatColor.RED + "Already Joined Red Team");
 			return;
-		} else {
+		}
+		else {
 			blueTeamcue.add(playerName);
 			player.sendMessage(ChatColor.RED + "You have Joined The Blue Team");
 			checkTeams();
-			plugin.getServer().broadcastMessage(
-					ChatColor.AQUA + "[MooseBall] " + ChatColor.RED
-							+ "Red Team " + redTeamcue.size() + " Players  "
-							+ ChatColor.BLUE + "Blue Team "
-							+ blueTeamcue.size() + " Players " + ChatColor.AQUA
-							+ "Have Joined!");
+			plugin.getServer().broadcastMessage(ChatColor.AQUA + "[MooseBall] " + ChatColor.RED + "Red Team " + redTeamcue.size() + " Players  " + ChatColor.BLUE + "Blue Team " + blueTeamcue.size() + " Players " + ChatColor.AQUA + "Have Joined!");
 		}
 	}
 
@@ -417,17 +424,15 @@ public class MooseBallHandler {
 			if ((plugin.getServer().getPlayer(playerName)) != null)
 
 			{
-
+				
 				Player player = plugin.getServer().getPlayer(playerName);
-
-				if (!(redTeamMatch.contains(playerName))
-						&& (!(blueTeamMatch.contains(playerName)))) {
-					player.setMetadata("MooseBallAFK", new FixedMetadataValue(
-							plugin, "true"));
-					redTeamMatch.add(playerName);
-					redSpawn(player);
-					applyTeamRed(player);
-					MooseBallAFKInitTimer.MooseBallAFKInitTimer(plugin, player);
+				
+				if(!(redTeamMatch.contains(playerName))&& (!(blueTeamMatch.contains(playerName))))
+				{
+					player.setMetadata("MooseBallAFK", new FixedMetadataValue(plugin, "true"));
+				redTeamMatch.add(playerName);
+				redSpawn(player);
+				applyTeamRed(player);
 				}
 				MooseBallRemoveTimerRed.MooseBallRemoveTimerRed(player, plugin);
 
@@ -452,14 +457,12 @@ public class MooseBallHandler {
 
 			{
 				Player player = plugin.getServer().getPlayer(playerName);
-				if (!(redTeamMatch.contains(playerName))
-						&& (!(blueTeamMatch.contains(playerName)))) {
-					player.setMetadata("MooseBallAFK", new FixedMetadataValue(
-							plugin, "true"));
-					blueTeamMatch.add(playerName);
-					blueSpawn(player);
-					applyTeamBlue(player);
-					MooseBallAFKInitTimer.MooseBallAFKInitTimer(plugin, player);
+				if(!(redTeamMatch.contains(playerName))&& (!(blueTeamMatch.contains(playerName))))
+				{
+					player.setMetadata("MooseBallAFK", new FixedMetadataValue(plugin, "true"));
+				blueTeamMatch.add(playerName);
+				blueSpawn(player);
+				applyTeamBlue(player);
 				}
 
 			}
@@ -479,7 +482,7 @@ public class MooseBallHandler {
 				teamOffset = teamOffset / 2;
 
 				for (int i = 0; i < teamOffset; i++) {
-
+					
 					String playerName = (redTeamcue
 							.get((redTeamcue.size() - i - 1)));
 
@@ -488,6 +491,7 @@ public class MooseBallHandler {
 					{
 						if (!(blueTeamcue.contains(playerName))) {
 							blueTeamcue.add(playerName);
+						
 
 							MooseBallRemoveTimerRedCue
 									.MooseBallRemoveTimerRedCue(playerName,
@@ -507,13 +511,13 @@ public class MooseBallHandler {
 				for (int i = 0; i < teamOffset; i++)
 
 				{
-
-					String playerName = (blueTeamcue.get((blueTeamcue.size()
-							- i - 1)));
+					
+					String playerName = (blueTeamcue
+							.get((blueTeamcue.size() - i - 1)));
 					if ((plugin.getServer().getPlayer(playerName)) != null) {
 						if (!(redTeamcue.contains(playerName))) {
 							redTeamcue.add(playerName);
-
+				
 							MooseBallRemoveTimerBlueCue
 									.MooseBallRemoveTimerBlueCue(playerName,
 											plugin);
@@ -528,188 +532,173 @@ public class MooseBallHandler {
 	}
 
 	public static void checkWin() {
-		if (matchInit == true) {
 
-			if ((blueTeamMatch.size() == 0) || (redTeamMatch.size() == 0)) {
-				if (blueTeamMatch.size() == 0) {
 
-					plugin.getServer()
-							.broadcastMessage(
-									ChatColor.AQUA + "The " + ChatColor.RED
-											+ "RED" + ChatColor.AQUA
-											+ " Team is Victorious!!!");
+		if (blueTeamMatch.size() == 0) {
+			matchInit = false;
+			plugin.getServer().broadcastMessage(ChatColor.AQUA + "The " + 
+					ChatColor.RED + "RED" + ChatColor.AQUA + " Team is Victorious!!!");
 
-					for (int i = 0; i < redTeamMatch.size(); i++) {
-						String playerName = (redTeamMatch.get(i));
+			for (int i = 0; i < redTeamMatch.size(); i++) {
+				String playerName = (redTeamMatch.get(i));
 
-						if ((plugin.getServer().getPlayer(playerName)) != null)
-
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
-							MooseBallHandler.clearMooseBall(player);
-							MooseBallHandler.lobbySpawn(player);
-							MooseBallHandler.deColorize(player);
-							player.sendMessage(ChatColor.AQUA
-									+ "Winning Team: 2 Points Awarded!!");
-							int MooseBalls = player.getMetadata("MooseBalls")
-									.get(0).asInt();
-							MooseBalls = MooseBalls + 2;
-							player.setMetadata("MooseBalls",
-									new FixedMetadataValue(plugin, MooseBalls));
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))) {
-								redTeamcue.add(playerName);
-
-								player.sendMessage(ChatColor.RED
-										+ "Rejoined Red Team");
-							}
-
-						}
-
-					}
-
-					for (int i = 0; i < redTeamEleminated.size(); i++) {
-						String playerName = (redTeamEleminated.get(i));
-
-						if ((plugin.getServer().getPlayer(playerName)) != null)
-
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
-
-							player.sendMessage(ChatColor.AQUA
-									+ "Winning Team: 2 Points Awarded!!");
-							int MooseBalls = player.getMetadata("MooseBalls")
-									.get(0).asInt();
-							MooseBalls = MooseBalls + 2;
-							player.setMetadata("MooseBalls",
-									new FixedMetadataValue(plugin, MooseBalls));
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))
-									&& (!(blueTeamcue.contains(playerName)))) {
-								redTeamcue.add(playerName);
-
-								player.sendMessage(ChatColor.RED
-										+ "Rejoined Red Team");
-							}
-						}
-
-					}
-					for (int i = 0; i < blueTeamEleminated.size(); i++) {
-						String playerName = (blueTeamEleminated.get(i));
-
-						if ((plugin.getServer().getPlayer(playerName)) != null)
-
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
-
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))
-									&& (!(blueTeamcue.contains(playerName)))) {
-								blueTeamcue.add(playerName);
-
-								player.sendMessage(ChatColor.BLUE
-										+ "Rejoined Blue Team");
-							}
-						}
-
-					}
-
-				} else if (redTeamMatch.size() == 0)
+				if ((plugin.getServer().getPlayer(playerName)) != null)
 
 				{
-					matchInit = false;
-					plugin.getServer()
-							.broadcastMessage(
-									ChatColor.AQUA + "The " + ChatColor.BLUE
-											+ "BlUE" + ChatColor.AQUA
-											+ " Team is Victorious!!!");
-					for (int i = 0; i < blueTeamMatch.size(); i++) {
-						String playerName = (blueTeamMatch.get(i));
-
-						if ((plugin.getServer().getPlayer(playerName)) != null)
-
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
-							MooseBallHandler.clearMooseBall(player);
-							MooseBallHandler.lobbySpawn(player);
-							MooseBallHandler.deColorize(player);
-							player.sendMessage(ChatColor.AQUA
-									+ "Winning Team: 2 Points Awarded!!");
-							int MooseBalls = player.getMetadata("MooseBalls")
-									.get(0).asInt();
-							MooseBalls = MooseBalls + 2;
-							player.setMetadata("MooseBalls",
-									new FixedMetadataValue(plugin, MooseBalls));
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))
-									&& (!(blueTeamcue.contains(playerName)))) {
-								blueTeamcue.add(playerName);
-
-								player.sendMessage(ChatColor.BLUE
-										+ "Rejoined Blue Team");
-							}
-						}
-
+					Player player = plugin.getServer().getPlayer(playerName);
+					MooseBallHandler.clearMooseBall(player);
+					MooseBallHandler.lobbySpawn(player);
+					MooseBallHandler.deColorize(player);
+					player.sendMessage(ChatColor.AQUA
+							+ "Winning Team: 2 Points Awarded!!");
+					int MooseBalls = player.getMetadata("MooseBalls").get(0)
+							.asInt();
+					MooseBalls = MooseBalls + 2;
+					player.setMetadata("MooseBalls", new FixedMetadataValue(
+							plugin, MooseBalls));
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					redTeamcue.add(playerName);
+					checkTeams();
+					player.sendMessage(ChatColor.RED + "Rejoined Red Team");
 					}
-					for (int i = 0; i < blueTeamEleminated.size(); i++) {
-						String playerName = (blueTeamEleminated.get(i));
+					
+				}
 
-						if ((plugin.getServer().getPlayer(playerName)) != null)
+			}
 
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
+			for (int i = 0; i < redTeamEleminated.size(); i++) {
+				String playerName = (redTeamEleminated.get(i));
 
-							player.sendMessage(ChatColor.AQUA
-									+ "Winning Team: 2 Points Awarded!!");
-							int MooseBalls = player.getMetadata("MooseBalls")
-									.get(0).asInt();
-							MooseBalls = MooseBalls + 2;
-							player.setMetadata("MooseBalls",
-									new FixedMetadataValue(plugin, MooseBalls));
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))
-									&& (!(blueTeamcue.contains(playerName)))) {
-								blueTeamcue.add(playerName);
+				if ((plugin.getServer().getPlayer(playerName)) != null)
 
-								player.sendMessage(ChatColor.BLUE
-										+ "Rejoined Blue Team");
-							}
-						}
+				{
+					Player player = plugin.getServer().getPlayer(playerName);
 
+					player.sendMessage(ChatColor.AQUA
+							+ "Winning Team: 2 Points Awarded!!");
+					int MooseBalls = player.getMetadata("MooseBalls").get(0)
+							.asInt();
+					MooseBalls = MooseBalls + 2;
+					player.setMetadata("MooseBalls", new FixedMetadataValue(
+							plugin, MooseBalls));
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					redTeamcue.add(playerName);
+				
+					player.sendMessage(ChatColor.RED + "Rejoined Red Team");
 					}
+				}
 
-					for (int i = 0; i < redTeamEleminated.size(); i++) {
-						String playerName = (redTeamEleminated.get(i));
+			}
+			for (int i = 0; i < blueTeamEleminated.size(); i++) {
+				String playerName = (blueTeamEleminated.get(i));
 
-						if ((plugin.getServer().getPlayer(playerName)) != null)
+				if ((plugin.getServer().getPlayer(playerName)) != null)
 
-						{
-							Player player = plugin.getServer().getPlayer(
-									playerName);
+				{
+					Player player = plugin.getServer().getPlayer(playerName);
 
-							player.removeMetadata("MooseBall", plugin);
-							if (!(redTeamcue.contains(playerName))
-									&& (!(blueTeamcue.contains(playerName)))) {
-								redTeamcue.add(playerName);
-
-								player.sendMessage(ChatColor.RED
-										+ "Rejoined Red Team");
-							}
-
-						}
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					blueTeamcue.add(playerName);
+					
+					player.sendMessage(ChatColor.BLUE + "Rejoined Blue Team");
 					}
+				}
+
+			}
+			matchInit = false;
+		
+			MooseBallResetTimer.MooseBallResetTimer(plugin);
+
+		} else if (redTeamMatch.size() == 0)
+
+		{matchInit = false;
+			plugin.getServer().broadcastMessage(ChatColor.AQUA + "The " + 
+					ChatColor.BLUE + "BlUE" + ChatColor.AQUA + " Team is Victorious!!!");
+			for (int i = 0; i < blueTeamMatch.size(); i++) {
+				String playerName = (blueTeamMatch.get(i));
+
+				if ((plugin.getServer().getPlayer(playerName)) != null)
+
+				{
+					Player player = plugin.getServer().getPlayer(playerName);
+					MooseBallHandler.clearMooseBall(player);
+					MooseBallHandler.lobbySpawn(player);
+					MooseBallHandler.deColorize(player);
+					player.sendMessage(ChatColor.AQUA
+							+ "Winning Team: 2 Points Awarded!!");
+					int MooseBalls = player.getMetadata("MooseBalls").get(0)
+							.asInt();
+					MooseBalls = MooseBalls + 2;
+					player.setMetadata("MooseBalls", new FixedMetadataValue(
+							plugin, MooseBalls));
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					blueTeamcue.add(playerName);
+					
+					player.sendMessage(ChatColor.BLUE + "Rejoined Blue Team");
+					}
+				}
+
+			}
+			for (int i = 0; i < blueTeamEleminated.size(); i++) {
+				String playerName = (blueTeamEleminated.get(i));
+
+				if ((plugin.getServer().getPlayer(playerName)) != null)
+
+				{
+					Player player = plugin.getServer().getPlayer(playerName);
+
+					player.sendMessage(ChatColor.AQUA
+							+ "Winning Team: 2 Points Awarded!!");
+					int MooseBalls = player.getMetadata("MooseBalls").get(0)
+							.asInt();
+					MooseBalls = MooseBalls + 2;
+					player.setMetadata("MooseBalls", new FixedMetadataValue(
+							plugin, MooseBalls));
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					blueTeamcue.add(playerName);
+					
+					player.sendMessage(ChatColor.BLUE + "Rejoined Blue Team");
+					}
+				}
+
+			}
+
+			
+			for (int i = 0; i < redTeamEleminated.size(); i++) {
+				String playerName = (redTeamEleminated.get(i));
+
+				if ((plugin.getServer().getPlayer(playerName)) != null)
+
+				{
+					Player player = plugin.getServer().getPlayer(playerName);
+
+					player.removeMetadata("MooseBall", plugin);
+					if((!(redTeamcue.contains(playerName)))&&(!(blueTeamcue.contains(playerName))))
+					{
+					redTeamcue.add(playerName);
+					
+					player.sendMessage(ChatColor.RED + "Rejoined Red Team");
+				}
+
 
 				}
-				matchInit = false;
-
-				MooseBallResetTimer.MooseBallResetTimer(plugin);
 			}
 		}
+
+		matchInit = false;
+		
+		MooseBallResetTimer.MooseBallResetTimer(plugin);	
+
 	}
 
 	public static void deColorize(Player p) {
@@ -729,7 +718,6 @@ public class MooseBallHandler {
 	}
 
 	public static void teamLeave(Player player) {
-
 		String playerName = player.getName();
 
 		if (redTeamcue.contains(playerName)) {
@@ -766,20 +754,11 @@ public class MooseBallHandler {
 				MooseBallHandler.checkWin();
 			}
 		}
-		if(blueTeamEleminated.contains(playerName))
-				{
-			blueTeamEleminated.remove(playerName);
-				}
-		if(redTeamEleminated.contains(playerName))
-		{
-	redTeamEleminated.remove(playerName);
-		}
-		player.removeMetadata("MooseBall", plugin);
 	}
 
 	public static void eleminatePlayer(Player player) {
 		String playerName = player.getName();
-
+		
 		if (player.hasMetadata("MooseBall")) {
 
 			String teamColor = player.getMetadata("MooseBall").get(0)
@@ -801,28 +780,89 @@ public class MooseBallHandler {
 			}
 		}
 	}
+	public static boolean selectArena()
+	{
+		Random randArena = new Random();
 
-	public static void MooseBallReset() {
-		Player[] playerlist = plugin.getServer().getOnlinePlayers();
-		int listsize = plugin.getServer().getOnlinePlayers().length;
-		for (int i = 0; i < listsize; i++) {
-			Player replayer = playerlist[i];
-			if (replayer.hasMetadata("MooseBall")) {
+		int randX = randArena.nextInt(99);
+		plugin.getServer().broadcastMessage("" + randX);
+		if (randX >= 0 && randX <=24)
+		{
+			if (MooseBallConfig.arena1 == true)
+			{
+				redX = MooseBallConfig.redX1;
+				redY = MooseBallConfig.redY1;
+				redZ = MooseBallConfig.redZ1;
+				
+				blueX = MooseBallConfig.blueX1;
+				blueY = MooseBallConfig.blueY1;
+				blueZ = MooseBallConfig.blueZ1;
 
-				MooseBallHandler.clearMooseBall(replayer);
-				MooseBallHandler.lobbySpawn(replayer);
-				MooseBallHandler.deColorize(replayer);
-				MooseBallHandler.eleminatePlayer(replayer);
-				MooseBallHandler.checkWin();
-				redTeamMatch.clear();
-				blueTeamMatch.clear();
-				redTeamcue.clear();
-				blueTeamcue.clear();
-				redTeamEleminated.clear();
-				blueTeamEleminated.clear();
+				redYaw = MooseBallConfig.redYaw1;
+				blueYaw = MooseBallConfig.blueYaw1;
+				return true;
+			}
+
+		}
+		else if (randX >= 25 && randX <=49)
+		{
+			if (MooseBallConfig.arena2 == true)
+			{
+				redX = MooseBallConfig.redX2;
+				redY = MooseBallConfig.redY2;
+				redZ = MooseBallConfig.redZ2;
+				
+				blueX = MooseBallConfig.blueX2;
+				blueY = MooseBallConfig.blueY2;
+				blueZ = MooseBallConfig.blueZ2;
+
+				redYaw = MooseBallConfig.redYaw2;
+				blueYaw = MooseBallConfig.blueYaw2;
+				return true;
+			}
+
+		}
+		else if (randX >= 50 && randX <=74)
+		{
+			if (MooseBallConfig.arena3 == true)
+			{
+				redX = MooseBallConfig.redX3;
+				redY = MooseBallConfig.redY3;
+				redZ = MooseBallConfig.redZ3;
+				
+				blueX = MooseBallConfig.blueX3;
+				blueY = MooseBallConfig.blueY3;
+				blueZ = MooseBallConfig.blueZ3;
+
+				redYaw = MooseBallConfig.redYaw3;
+				blueYaw = MooseBallConfig.blueYaw3;
+				return true;
+			}
+
+		}
+		else if (randX >= 75 && randX <=99)
+		{
+			if (MooseBallConfig.arena4 == true)
+			{
+				redX = MooseBallConfig.redX4;
+				redY = MooseBallConfig.redY4;
+				redZ = MooseBallConfig.redZ4;
+				
+				blueX = MooseBallConfig.blueX4;
+				blueY = MooseBallConfig.blueY4;
+				blueZ = MooseBallConfig.blueZ4;
+
+				redYaw = MooseBallConfig.redYaw4;
+				blueYaw = MooseBallConfig.blueYaw4;
+				return true;
 				
 			}
-		}
-	}
 
+		}
+		
+		plugin.getServer().broadcastMessage("" + redX + " " + redY + " " + redZ);
+		plugin.getServer().broadcastMessage("" + blueX + " " + blueY + " " + blueZ);
+		return false;
+	}
+	
 }

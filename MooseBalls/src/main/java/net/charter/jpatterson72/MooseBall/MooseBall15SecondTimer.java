@@ -14,7 +14,9 @@ public class MooseBall15SecondTimer {
 
 					myPlugin.getServer().broadcastMessage(ChatColor.RED + "MooseBall: " + ChatColor.AQUA
 							+ "Next Match Begins In 15 Seconds!");
-						
+					while (!(MooseBallHandler.selectArena())) {
+						;
+					}
 					}
 				}, 300);
 		

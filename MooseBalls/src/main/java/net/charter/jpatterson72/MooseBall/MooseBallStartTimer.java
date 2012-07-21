@@ -1,6 +1,7 @@
 package net.charter.jpatterson72.MooseBall;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class MooseBallStartTimer {
@@ -19,6 +20,21 @@ public class MooseBallStartTimer {
 						else{
 							myPlugin.getServer().broadcastMessage(ChatColor.AQUA + "[MooseBall] " + ChatColor.RED + "Match Cancelled: Not Enough Players!");
 							MooseBallHandler.matchInit = false;
+							Player[] playerlist = myPlugin.getServer().getOnlinePlayers();
+					        int listsize = myPlugin.getServer().getOnlinePlayers().length;
+					            for(int i = 0; i < listsize; i++) {
+					                Player replayer = playerlist[i];
+					                if(replayer.hasMetadata("MooseBall"))
+					                {	
+										
+										MooseBallHandler.clearMooseBall(replayer);
+										MooseBallHandler.lobbySpawn(replayer);
+										MooseBallHandler.deColorize(replayer);
+										MooseBallHandler.eleminatePlayer(replayer);
+										MooseBallHandler.checkWin();		
+					                }
+
+					            }
 						}
 					}
 				}, 600);

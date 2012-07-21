@@ -19,7 +19,7 @@ public class MooseBallAFKInitTimer {
 					
 					
 					
-				}, 20);
+				}, 60);
 		
 
 		return;

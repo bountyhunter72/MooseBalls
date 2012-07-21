@@ -13,7 +13,7 @@ public class MooseBallRemoveTimerRedCue {
 						
 						MooseBallHandler.redTeamcue.remove(playerName);
 					}
-				}, 5);
+				}, 1);
 		
 
 		return;
